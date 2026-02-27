@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오픈클로: 리눅스와 맥미니에서의 차이</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-shape shape-a" aria-hidden="true"></div>
+  <div class="bg-shape shape-b" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="brutal-box hero">
+      <p class="kicker">NEOBRUTAL BLOG / KOREAN EDITION</p>
+      <h1>오픈클로: 리눅스와 맥미니에서의 차이</h1>
+      <p class="dek">
+        같은 오픈클로라도 실행 환경이 바뀌면 설치 방식, 운영 난이도, 보안 경계, 브라우저 제어 안정성,
+        그리고 실제 처리 성능이 꽤 다르게 나타난다. 이 글은 리눅스 서버 환경과 맥미니(Apple Silicon) 환경을
+        실무 관점에서 비교한 기록이다.
+      </p>
+      <ul class="tags" aria-label="핵심 주제">
+        <li>설치</li>
+        <li>운영</li>
+        <li>보안</li>
+        <li>브라우저 제어</li>
+        <li>성능</li>
+      </ul>
+    </header>
+
+    <article class="post">
+      <section class="brutal-box block">
+        <h2>1) 설치: 패키지 생태계와 CPU 아키텍처의 체감 차이</h2>
+        <p>
+          리눅스는 서버 자동화가 이미 잘 정리되어 있어서 <code>apt</code>/<code>dnf</code> + 컨테이너 조합으로
+          표준화하기 쉽다. 반면 맥미니는 <code>brew</code> 중심의 관리가 편하고 로컬 개발 경험은 좋지만,
+          CI/CD까지 동일한 방식으로 밀어붙이기엔 환경 편차가 생기기 쉽다.
+        </p>
+        <div class="compare">
+          <section class="panel linux">
+            <h3>리눅스 설치 포인트</h3>
+            <ul>
+              <li>헤드리스 런타임 구성과 시스템 서비스 등록이 단순하다.</li>
+              <li>의존성 잠금(버전 고정)과 이미지 재현성이 높다.</li>
+              <li>x86_64 기준 바이너리 호환 이슈가 상대적으로 적다.</li>
+            </ul>
+          </section>
+          <section class="panel mac">
+            <h3>맥미니 설치 포인트</h3>
+            <ul>
+              <li>개발자 도구 설치와 첫 실행 속도는 빠르고 직관적이다.</li>
+              <li>Apple Silicon 환경에서 일부 바이너리는 arm64 대응 여부를 확인해야 한다.</li>
+              <li>GUI 의존 툴은 편하지만 무인 실행 구성은 추가 설정이 필요하다.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <section class="brutal-box block">
+        <h2>2) 운영: 장애 복구와 자동화의 무게 중심</h2>
+        <p>
+          운영 관점에서 리눅스는 서비스화(<code>systemd</code>, 로그 수집, 재시작 정책)와 원격 자동화(SSH/Ansible)에서
+          정석 경로가 뚜렷하다. 맥미니는 로컬 실험, 소규모 워커, 크리에이티브 도구와의 결합에는 뛰어나지만,
+          장기 무인 운영에서 세션/권한/업데이트 정책을 따로 관리해야 한다.
+        </p>
+        <p>
+          실제로 "한 번 설정 후 오래 굴리는" 워크로드는 리눅스가 예측 가능성이 높고, "빠르게 만들고 바로 확인하는"
+          워크로드는 맥미니가 개발 피드백 루프가 짧다.
+        </p>
+      </section>
+
+      <section class="brutal-box block">
+        <h2>3) 보안: 기본 경계와 권한 모델의 접근법 차이</h2>
+        <p>
+          리눅스는 사용자/그룹 권한, 네트워크 격리, 컨테이너 네임스페이스, 최소권한 서비스 계정 같은
+          서버형 보안 패턴을 강하게 적용하기 쉽다. 맥미니는 OS 차원의 앱 권한 통제가 세밀하지만,
+          자동화 과정에서 화면 제어/입력 권한 같은 사용자 승인 흐름이 병목이 되기도 한다.
+        </p>
+        <ul>
+          <li>리눅스: 네트워크 경계와 프로세스 격리를 중심으로 정책 설계가 수월하다.</li>
+          <li>맥미니: GUI 권한 승인과 OS 보안 정책(TCC) 관리가 안정성의 핵심이다.</li>
+          <li>공통: 비밀값은 환경 변수보다 전용 시크릿 저장소 사용이 안전하다.</li>
+        </ul>
+      </section>
+
+      <section class="brutal-box block">
+        <h2>4) 브라우저 제어: 헤드리스 안정성 vs 데스크톱 친화성</h2>
+        <p>
+          오픈클로에서 브라우저 자동화(예: Chromium 계열 제어)를 쓴다면, 리눅스는 헤드리스 실행 파이프라인 구축이
+          전형적이고 재현성이 높다. 맥미니는 실제 데스크톱 브라우저 동작 검증이 쉬워서 디버깅 체감이 좋다.
+        </p>
+        <div class="compare">
+          <section class="panel linux">
+            <h3>리눅스 브라우저 제어</h3>
+            <ul>
+              <li>가상 디스플레이/Xvfb 없이도 헤드리스 중심으로 단순화 가능.</li>
+              <li>컨테이너에서 샌드박스 플래그와 공유 메모리 옵션을 점검해야 한다.</li>
+              <li>원격 디버깅 포트와 로그 수집 자동화가 쉽다.</li>
+            </ul>
+          </section>
+          <section class="panel mac">
+            <h3>맥미니 브라우저 제어</h3>
+            <ul>
+              <li>실제 사용자 브라우저 환경 재현이 쉬워 프론트 이슈 확인이 빠르다.</li>
+              <li>OS 업데이트 이후 자동화 권한이 재요청되는 경우를 대비해야 한다.</li>
+              <li>세션 잠금/절전 설정이 런타임 안정성에 영향을 준다.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <section class="brutal-box block">
+        <h2>5) 성능: 단일 작업 속도보다 "지속 처리량"을 봐야 한다</h2>
+        <p>
+          맥미니는 전력 대비 성능이 우수하고 로컬 작업 체감도 좋아 단발성 실행이나 개발 테스트에서 만족도가 높다.
+          반면 리눅스 서버는 장시간 병렬 처리, 워커 확장, 관측성 확보에서 유리해 총 처리량(throughput)이 안정적으로 나온다.
+        </p>
+        <p>
+          결론적으로 "빠른 1회 실행"은 맥미니가 유리할 수 있고, "예측 가능한 24/7 파이프라인"은 리눅스가 유리하다.
+          오픈클로를 어디에 둘지 결정할 때는 CPU 벤치마크보다 운영 목표(SLA, 장애 복구 시간, 자동화 수준)를 먼저 고르는 편이 맞다.
+        </p>
+      </section>
+
+      <section class="brutal-box block cta">
+        <h2>최종 정리</h2>
+        <p>
+          개발 속도와 디버깅 편의성이 중요하면 맥미니, 장기 운영 안정성과 표준 자동화가 중요하면 리눅스가 기본 선택이다.
+          가장 실용적인 조합은 <strong>맥미니에서 개발/검증</strong>하고 <strong>리눅스에서 서비스 운영</strong>하는 이원화 전략이다.
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
