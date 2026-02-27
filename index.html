@@ -3,132 +3,246 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오픈클로: 리눅스와 맥미니에서의 차이</title>
+  <title>오픈클로 홈 | 네오브루탈 블로그</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="bg-shape shape-a" aria-hidden="true"></div>
   <div class="bg-shape shape-b" aria-hidden="true"></div>
+  <div class="bg-shape shape-c" aria-hidden="true"></div>
 
-  <main class="page">
+  <main class="page" id="top">
     <header class="brutal-box hero">
-      <p class="kicker">NEOBRUTAL BLOG / KOREAN EDITION</p>
-      <h1>오픈클로: 리눅스와 맥미니에서의 차이</h1>
+      <p class="kicker">NEOBRUTAL BLOG / HOMEPAGE</p>
+      <h1>오픈클로 글 모음</h1>
       <p class="dek">
-        같은 오픈클로라도 실행 환경이 바뀌면 설치 방식, 운영 난이도, 보안 경계, 브라우저 제어 안정성,
-        그리고 실제 처리 성능이 꽤 다르게 나타난다. 이 글은 리눅스 서버 환경과 맥미니(Apple Silicon) 환경을
-        실무 관점에서 비교한 기록이다.
+        아래 카드에서 읽고 싶은 글을 고르면 바로 본문으로 이동합니다.
+        가볍게 훑어본 뒤 깊게 읽는, 네오브루탈 스타일 블로그 홈으로 재구성했습니다.
       </p>
-      <ul class="tags" aria-label="핵심 주제">
-        <li>설치</li>
-        <li>운영</li>
-        <li>보안</li>
-        <li>브라우저 제어</li>
-        <li>성능</li>
-      </ul>
+      <nav class="top-nav" aria-label="게시글 바로가기">
+        <a href="#post-linux-mac">리눅스와 맥미니 차이</a>
+        <a href="#post-tools">오픈클로의 도구</a>
+      </nav>
     </header>
 
-    <article class="post">
-      <section class="brutal-box block">
-        <h2>1) 설치: 패키지 생태계와 CPU 아키텍처의 체감 차이</h2>
-        <p>
-          리눅스는 서버 자동화가 이미 잘 정리되어 있어서 <code>apt</code>/<code>dnf</code> + 컨테이너 조합으로
-          표준화하기 쉽다. 반면 맥미니는 <code>brew</code> 중심의 관리가 편하고 로컬 개발 경험은 좋지만,
-          CI/CD까지 동일한 방식으로 밀어붙이기엔 환경 편차가 생기기 쉽다.
-        </p>
-        <div class="compare">
-          <section class="panel linux">
-            <h3>리눅스 설치 포인트</h3>
-            <ul>
-              <li>헤드리스 런타임 구성과 시스템 서비스 등록이 단순하다.</li>
-              <li>의존성 잠금(버전 고정)과 이미지 재현성이 높다.</li>
-              <li>x86_64 기준 바이너리 호환 이슈가 상대적으로 적다.</li>
-            </ul>
-          </section>
-          <section class="panel mac">
-            <h3>맥미니 설치 포인트</h3>
-            <ul>
-              <li>개발자 도구 설치와 첫 실행 속도는 빠르고 직관적이다.</li>
-              <li>Apple Silicon 환경에서 일부 바이너리는 arm64 대응 여부를 확인해야 한다.</li>
-              <li>GUI 의존 툴은 편하지만 무인 실행 구성은 추가 설정이 필요하다.</li>
-            </ul>
-          </section>
-        </div>
-      </section>
+    <section class="post-picker" aria-labelledby="post-picker-title">
+      <div class="brutal-box section-head">
+        <h2 id="post-picker-title">읽을 글 선택</h2>
+        <p>카드를 누르면 해당 포스트 본문으로 점프합니다.</p>
+      </div>
 
-      <section class="brutal-box block">
-        <h2>2) 운영: 장애 복구와 자동화의 무게 중심</h2>
-        <p>
-          운영 관점에서 리눅스는 서비스화(<code>systemd</code>, 로그 수집, 재시작 정책)와 원격 자동화(SSH/Ansible)에서
-          정석 경로가 뚜렷하다. 맥미니는 로컬 실험, 소규모 워커, 크리에이티브 도구와의 결합에는 뛰어나지만,
-          장기 무인 운영에서 세션/권한/업데이트 정책을 따로 관리해야 한다.
-        </p>
-        <p>
-          실제로 "한 번 설정 후 오래 굴리는" 워크로드는 리눅스가 예측 가능성이 높고, "빠르게 만들고 바로 확인하는"
-          워크로드는 맥미니가 개발 피드백 루프가 짧다.
-        </p>
-      </section>
+      <div class="cards">
+        <a class="brutal-box post-card card-linux" href="#post-linux-mac">
+          <p class="card-label">ARTICLE 01</p>
+          <h3>오픈클로: 리눅스와 맥미니에서의 차이</h3>
+          <p>
+            설치 방식, 운영 자동화, 보안 경계, 브라우저 제어, 지속 처리량까지
+            실무 기준으로 비교한 정리.
+          </p>
+          <span class="card-cta">본문 읽기</span>
+        </a>
 
-      <section class="brutal-box block">
-        <h2>3) 보안: 기본 경계와 권한 모델의 접근법 차이</h2>
-        <p>
-          리눅스는 사용자/그룹 권한, 네트워크 격리, 컨테이너 네임스페이스, 최소권한 서비스 계정 같은
-          서버형 보안 패턴을 강하게 적용하기 쉽다. 맥미니는 OS 차원의 앱 권한 통제가 세밀하지만,
-          자동화 과정에서 화면 제어/입력 권한 같은 사용자 승인 흐름이 병목이 되기도 한다.
-        </p>
-        <ul>
-          <li>리눅스: 네트워크 경계와 프로세스 격리를 중심으로 정책 설계가 수월하다.</li>
-          <li>맥미니: GUI 권한 승인과 OS 보안 정책(TCC) 관리가 안정성의 핵심이다.</li>
-          <li>공통: 비밀값은 환경 변수보다 전용 시크릿 저장소 사용이 안전하다.</li>
-        </ul>
-      </section>
+        <a class="brutal-box post-card card-tools" href="#post-tools">
+          <p class="card-label">ARTICLE 02</p>
+          <h3>오픈클로의 도구에 대하여</h3>
+          <p>
+            터미널 실행, 웹 탐색, 계획/질문 루프, 패치 중심 편집까지
+            오픈클로의 핵심 도구를 실제 흐름으로 소개.
+          </p>
+          <span class="card-cta">본문 읽기</span>
+        </a>
+      </div>
+    </section>
 
-      <section class="brutal-box block">
-        <h2>4) 브라우저 제어: 헤드리스 안정성 vs 데스크톱 친화성</h2>
-        <p>
-          오픈클로에서 브라우저 자동화(예: Chromium 계열 제어)를 쓴다면, 리눅스는 헤드리스 실행 파이프라인 구축이
-          전형적이고 재현성이 높다. 맥미니는 실제 데스크톱 브라우저 동작 검증이 쉬워서 디버깅 체감이 좋다.
-        </p>
-        <div class="compare">
-          <section class="panel linux">
-            <h3>리눅스 브라우저 제어</h3>
-            <ul>
-              <li>가상 디스플레이/Xvfb 없이도 헤드리스 중심으로 단순화 가능.</li>
-              <li>컨테이너에서 샌드박스 플래그와 공유 메모리 옵션을 점검해야 한다.</li>
-              <li>원격 디버깅 포트와 로그 수집 자동화가 쉽다.</li>
-            </ul>
-          </section>
-          <section class="panel mac">
-            <h3>맥미니 브라우저 제어</h3>
-            <ul>
-              <li>실제 사용자 브라우저 환경 재현이 쉬워 프론트 이슈 확인이 빠르다.</li>
-              <li>OS 업데이트 이후 자동화 권한이 재요청되는 경우를 대비해야 한다.</li>
-              <li>세션 잠금/절전 설정이 런타임 안정성에 영향을 준다.</li>
-            </ul>
-          </section>
-        </div>
-      </section>
+    <section class="articles" aria-label="전체 포스트">
+      <article class="brutal-box post-full" id="post-linux-mac">
+        <header class="post-head">
+          <p class="post-no">ARTICLE 01</p>
+          <a class="back-top" href="#top">맨 위로</a>
+        </header>
 
-      <section class="brutal-box block">
-        <h2>5) 성능: 단일 작업 속도보다 "지속 처리량"을 봐야 한다</h2>
+        <h2>오픈클로: 리눅스와 맥미니에서의 차이</h2>
         <p>
-          맥미니는 전력 대비 성능이 우수하고 로컬 작업 체감도 좋아 단발성 실행이나 개발 테스트에서 만족도가 높다.
-          반면 리눅스 서버는 장시간 병렬 처리, 워커 확장, 관측성 확보에서 유리해 총 처리량(throughput)이 안정적으로 나온다.
+          같은 오픈클로라도 실행 환경이 바뀌면 설치 방식, 운영 난이도, 보안 경계, 브라우저 제어 안정성,
+          그리고 실제 처리 성능이 다르게 나타난다. 이 글은 리눅스 서버 환경과 맥미니(Apple Silicon) 환경을
+          실무 관점에서 비교한 기록이다.
         </p>
-        <p>
-          결론적으로 "빠른 1회 실행"은 맥미니가 유리할 수 있고, "예측 가능한 24/7 파이프라인"은 리눅스가 유리하다.
-          오픈클로를 어디에 둘지 결정할 때는 CPU 벤치마크보다 운영 목표(SLA, 장애 복구 시간, 자동화 수준)를 먼저 고르는 편이 맞다.
-        </p>
-      </section>
 
-      <section class="brutal-box block cta">
-        <h2>최종 정리</h2>
+        <section class="block">
+          <h3>1) 설치: 패키지 생태계와 CPU 아키텍처의 체감 차이</h3>
+          <p>
+            리눅스는 서버 자동화가 이미 잘 정리되어 있어서 <code>apt</code>/<code>dnf</code> + 컨테이너 조합으로
+            표준화하기 쉽다. 반면 맥미니는 <code>brew</code> 중심의 관리가 편하고 로컬 개발 경험은 좋지만,
+            CI/CD까지 동일한 방식으로 밀어붙이기엔 환경 편차가 생기기 쉽다.
+          </p>
+          <div class="compare">
+            <section class="panel linux">
+              <h4>리눅스 설치 포인트</h4>
+              <ul>
+                <li>헤드리스 런타임 구성과 시스템 서비스 등록이 단순하다.</li>
+                <li>의존성 잠금(버전 고정)과 이미지 재현성이 높다.</li>
+                <li>x86_64 기준 바이너리 호환 이슈가 상대적으로 적다.</li>
+              </ul>
+            </section>
+            <section class="panel mac">
+              <h4>맥미니 설치 포인트</h4>
+              <ul>
+                <li>개발자 도구 설치와 첫 실행 속도는 빠르고 직관적이다.</li>
+                <li>Apple Silicon 환경에서 일부 바이너리는 arm64 대응 여부를 확인해야 한다.</li>
+                <li>GUI 의존 툴은 편하지만 무인 실행 구성은 추가 설정이 필요하다.</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="block">
+          <h3>2) 운영: 장애 복구와 자동화의 무게 중심</h3>
+          <p>
+            운영 관점에서 리눅스는 서비스화(<code>systemd</code>, 로그 수집, 재시작 정책)와 원격 자동화(SSH/Ansible)에서
+            정석 경로가 뚜렷하다. 맥미니는 로컬 실험, 소규모 워커, 크리에이티브 도구와의 결합에는 뛰어나지만,
+            장기 무인 운영에서 세션/권한/업데이트 정책을 따로 관리해야 한다.
+          </p>
+          <p>
+            실제로 "한 번 설정 후 오래 굴리는" 워크로드는 리눅스가 예측 가능성이 높고, "빠르게 만들고 바로 확인하는"
+            워크로드는 맥미니가 개발 피드백 루프가 짧다.
+          </p>
+        </section>
+
+        <section class="block">
+          <h3>3) 보안: 기본 경계와 권한 모델의 접근법 차이</h3>
+          <p>
+            리눅스는 사용자/그룹 권한, 네트워크 격리, 컨테이너 네임스페이스, 최소권한 서비스 계정 같은
+            서버형 보안 패턴을 강하게 적용하기 쉽다. 맥미니는 OS 차원의 앱 권한 통제가 세밀하지만,
+            자동화 과정에서 화면 제어/입력 권한 같은 사용자 승인 흐름이 병목이 되기도 한다.
+          </p>
+          <ul>
+            <li>리눅스: 네트워크 경계와 프로세스 격리를 중심으로 정책 설계가 수월하다.</li>
+            <li>맥미니: GUI 권한 승인과 OS 보안 정책(TCC) 관리가 안정성의 핵심이다.</li>
+            <li>공통: 비밀값은 환경 변수보다 전용 시크릿 저장소 사용이 안전하다.</li>
+          </ul>
+        </section>
+
+        <section class="block">
+          <h3>4) 브라우저 제어: 헤드리스 안정성 vs 데스크톱 친화성</h3>
+          <p>
+            오픈클로에서 브라우저 자동화(예: Chromium 계열 제어)를 쓴다면, 리눅스는 헤드리스 실행 파이프라인 구축이
+            전형적이고 재현성이 높다. 맥미니는 실제 데스크톱 브라우저 동작 검증이 쉬워서 디버깅 체감이 좋다.
+          </p>
+          <div class="compare">
+            <section class="panel linux">
+              <h4>리눅스 브라우저 제어</h4>
+              <ul>
+                <li>가상 디스플레이 없이도 헤드리스 중심으로 단순화 가능.</li>
+                <li>컨테이너에서 샌드박스 플래그와 공유 메모리 옵션을 점검해야 한다.</li>
+                <li>원격 디버깅 포트와 로그 수집 자동화가 쉽다.</li>
+              </ul>
+            </section>
+            <section class="panel mac">
+              <h4>맥미니 브라우저 제어</h4>
+              <ul>
+                <li>실제 사용자 브라우저 환경 재현이 쉬워 프론트 이슈 확인이 빠르다.</li>
+                <li>OS 업데이트 이후 자동화 권한이 재요청되는 경우를 대비해야 한다.</li>
+                <li>세션 잠금/절전 설정이 런타임 안정성에 영향을 준다.</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="block highlight">
+          <h3>5) 성능: 단일 작업 속도보다 지속 처리량을 봐야 한다</h3>
+          <p>
+            맥미니는 전력 대비 성능이 우수하고 로컬 작업 체감도 좋아 단발성 실행이나 개발 테스트에서 만족도가 높다.
+            반면 리눅스 서버는 장시간 병렬 처리, 워커 확장, 관측성 확보에서 유리해 총 처리량(throughput)이 안정적으로 나온다.
+          </p>
+          <p>
+            결론적으로 "빠른 1회 실행"은 맥미니가 유리할 수 있고, "예측 가능한 24/7 파이프라인"은 리눅스가 유리하다.
+            오픈클로를 어디에 둘지 결정할 때는 CPU 벤치마크보다 운영 목표(SLA, 장애 복구 시간, 자동화 수준)를 먼저 고르는 편이 맞다.
+          </p>
+        </section>
+      </article>
+
+      <article class="brutal-box post-full" id="post-tools">
+        <header class="post-head">
+          <p class="post-no">ARTICLE 02</p>
+          <a class="back-top" href="#top">맨 위로</a>
+        </header>
+
+        <h2>오픈클로의 도구에 대하여</h2>
         <p>
-          개발 속도와 디버깅 편의성이 중요하면 맥미니, 장기 운영 안정성과 표준 자동화가 중요하면 리눅스가 기본 선택이다.
-          가장 실용적인 조합은 <strong>맥미니에서 개발/검증</strong>하고 <strong>리눅스에서 서비스 운영</strong>하는 이원화 전략이다.
+          오픈클로의 강점은 단순히 "명령을 실행한다"에 그치지 않는다.
+          실행 도구, 탐색 도구, 계획 도구, 패치 도구가 짝을 이루어 문제를 빠르게 진단하고 정확하게 수정할 수 있게 만든다.
         </p>
-      </section>
-    </article>
+
+        <section class="block">
+          <h3>1) 도구 묶음의 핵심: 탐색 → 수정 → 검증 루프</h3>
+          <p>
+            실무에서 중요한 것은 한 번의 멋진 명령보다 반복 가능한 루프다.
+            오픈클로는 파일 검색으로 단서를 잡고, 필요한 곳만 패치하고, 즉시 실행으로 결과를 검증하는 흐름을 빠르게 이어준다.
+          </p>
+          <ul>
+            <li>탐색 단계: 파일/심볼/로그를 짧은 명령으로 좁혀간다.</li>
+            <li>수정 단계: 과한 수동 편집보다 목표 지점 위주로 정밀 변경한다.</li>
+            <li>검증 단계: 변경 직후 실행해 회귀를 빠르게 발견한다.</li>
+          </ul>
+        </section>
+
+        <section class="block">
+          <h3>2) 실행 도구: 반복 작업을 줄이는 자동화 엔진</h3>
+          <div class="tools-grid">
+            <section class="tool-panel">
+              <h4>명령 실행</h4>
+              <p>
+                테스트, 빌드, 포맷, 로그 확인을 짧은 루프로 돌린다.
+                실패 메시지를 바로 보고 다음 패치를 이어갈 수 있다.
+              </p>
+            </section>
+            <section class="tool-panel">
+              <h4>세션 입력</h4>
+              <p>
+                장시간 실행되는 프로세스에도 추가 입력을 보내며
+                인터랙티브한 확인 작업을 끊김 없이 이어갈 수 있다.
+              </p>
+            </section>
+          </div>
+        </section>
+
+        <section class="block">
+          <h3>3) 탐색 도구: 최신 정보와 로컬 맥락을 분리해 확인</h3>
+          <p>
+            로컬 코드만으로 판단하기 어려운 경우엔 검색/문서 탐색으로 바깥 정보를 확인하고,
+            코드 변경 자체는 프로젝트 컨텍스트에 맞춰 적용한다. 이 분리가 정확도를 높여준다.
+          </p>
+          <p>
+            특히 버전 의존성이 큰 작업에서는 "기억"보다 "현재 문서"를 우선으로 확인하는 습관이 안정성을 만든다.
+          </p>
+        </section>
+
+        <section class="block">
+          <h3>4) 계획 및 질문 도구: 협업을 끊기지 않게 만드는 장치</h3>
+          <p>
+            작업이 길어질수록 중간 계획 공유가 중요하다.
+            단계별 상태를 명확히 남기면, 어디까지 완료됐고 무엇이 남았는지 팀 전체가 빠르게 이해할 수 있다.
+          </p>
+          <ul>
+            <li>작업 우선순위 정리</li>
+            <li>불확실한 결정 지점에서 사용자 선택 요청</li>
+            <li>완료/진행/대기 상태의 명확한 구분</li>
+          </ul>
+        </section>
+
+        <section class="block highlight">
+          <h3>5) 패치 도구: 대규모 재작성보다 정확한 변경</h3>
+          <p>
+            패치 기반 편집은 "무엇이 바뀌었는지"를 분명하게 남긴다.
+            코드리뷰와 회귀 추적에 유리하고, 불필요한 변경을 줄여 충돌 가능성도 낮춘다.
+          </p>
+          <p>
+            오픈클로를 잘 활용하는 핵심은 도구 개수 자체가 아니라, 목적에 맞는 도구를 짧은 루프로 조합하는 습관이다.
+            결국 좋은 생산성은 화려한 명령이 아니라 일관된 실행 방식에서 나온다.
+          </p>
+        </section>
+      </article>
+    </section>
   </main>
 </body>
 </html>
